@@ -20,9 +20,10 @@ if start_page.strip() == "":
 start_page = int(start_page)
 
 save_name = input("Enter output filename (default movies_raw.json): ")
+if save_name.endswith(".json") is False:
+    save_name += ".json"
 if save_name.strip() == "":
     save_name = "movies_raw.json"
-
 
 print("Collecting ~1000 movies from TMDB and OMDB...")
 
