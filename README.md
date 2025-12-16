@@ -12,41 +12,55 @@
 This project analyzes factors influencing movie box office performance using data from TMDB and OMDb APIs. It examines how budget, genre, release timing, and especially critic-audience opinion dynamics relate to revenue and ROI. Due to limited separate Rotten Tomatoes audience scores, IMDb rating was used as an audience proxy. Inflation adjustment was applied to enable fair temporal comparisons.
 
 ## Repository Structure
-├── data/
-│   ├── raw/                # Raw JSON from APIs
-│   └── processed/          # Cleaned CSV
-├── project_proposal.pdf
-├── results/                
-|   ├── final_report.pdf    # Complete project report
-|   ├── tables/             # Saved tables
-|   └── plots/              # Saved plots
-├── src/
-│   ├── get_data.py         # Data collection from TMDB + OMDb
-│   ├── clean_data.py       # Cleaning and structuring
-│   ├── run_analysis.py     # Statistical analysis and insights
-│   └── visualize_results.py # Generate and save visualizations
-├── requirements.txt        # Python dependencies
-└── README.md               # This file
+├── data/<br>
+│   ├── raw/                # Raw JSON from APIs<br>
+│   └── processed/          # Cleaned CSV<br>
+├── project_proposal.pdf<br>
+├── results/<br>
+│   ├── final_report.pdf    # Complete project report<br>
+│   ├── tables/             # Saved tables<br>
+│   └── plots/              # Saved plots<br>
+├── src/<br>
+│   ├── get_data.py         # Data collection from TMDB + OMDb<br>
+│   ├── clean_data.py       # Cleaning and structuring<br>
+│   ├── run_analysis.py     # Statistical analysis and insights<br>
+│   └── visualize_results.py # Generate and save visualizations<br>
+├── requirements.txt        # Python dependencies<br>
+└── README.md               # This file<br>
 
 
 ## How to Run the Project
 1. Clone the repository
-2. Create `.env` file in root with your API keys:
+2. Create `.env` file in root with your API keys:<br>
 
-TMDB_API_KEY=your_tmdb_key
-OMDB_API_KEY=your_omdb_key
+TMDB_API_KEY=your_tmdb_key<br>
+OMDB_API_KEY=your_omdb_key<br>
 
 3. Install dependencies:
-In terminal run:
-pip install -r requirements.txt
+In terminal run:<br>
+pip install -r requirements.txt<br>
 
-4. Run in order
-In root directory run:
+## Important Note on Data Collection
 
-python src/get_data.py      # Prompts you to input starting page and desired name for collected JSON, default from page 1 and movies_raw.json. Change start and name for multiple calls to API 
-python src/clean_data.py
-python src/run_analysis.py
-python src/visualize_results.py
+To reconstruct the exact dataset (may be subject to change in online database) used in this project, the data collection script (`get_data.py`) must be run in two separate sessions on different days:
+
+- **Empty data\raw first if you want to build the dataset from scratch**
+- **First run**: Start page = 1 (collects pages 1–60) (usually around 20 minutes)
+- **Second run**: Start page = 61 (collects pages 61–120)
+
+This two-day approach is necessary due to the **OMDb API daily limit of 1,000 requests** on the free tier. Each run uses approximately 1,000–1,200 requests (one per movie for ratings), so splitting across days avoids exceeding the limit.
+
+The final dataset combines both runs (`movies_raw.json` and `movies_raw_day2.json`) into approximately 2,000 unique movies after deduplication.
+
+**Raw data is already included in `data/raw/` — you do not need to re-run collection unless testing.**
+
+4. Run in order:
+In root directory run:<br>
+
+python src/get_data.py<br>      # Prompts you to input starting page and desired name for collected JSON, default from page 1 and movies_raw.json. Change start and name for multiple calls to API<br> 
+python src/clean_data.py<br>
+python src/run_analysis.py<br>
+python src/visualize_results.py<br>
 
 ## Key Outputs
 
