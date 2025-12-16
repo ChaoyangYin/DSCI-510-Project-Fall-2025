@@ -50,13 +50,13 @@ To reconstruct the exact dataset (may be subject to change in online database) u
 
 This two-day approach is necessary due to the **OMDb API daily limit of 1,000 requests** on the free tier. Each run uses approximately 1,000–1,200 requests (one per movie for ratings), so splitting across days avoids exceeding the limit.
 
-The final dataset combines both runs (`movies_raw.json` and `movies_raw_day2.json`) into approximately 2,000 unique movies after deduplication.
+The final dataset combines both runs (`movies_raw.json` and `movies_raw_day2.json`) into 2,000 unique movies after deduplication.
 
 **Raw data is already included in `data/raw/` — you do not need to re-run collection unless testing.**
 
 4. Run in order:
 In root directory run:<br>
-
+IF YOU WANT TO USE EXISTING RAW DATA SKIP python src/get_data.py <br>
 python src/get_data.py<br>      # Prompts you to input starting page and desired name for collected JSON, default from page 1 and movies_raw.json. Change start and name for multiple calls to API<br> 
 python src/clean_data.py<br>
 python src/run_analysis.py<br>
