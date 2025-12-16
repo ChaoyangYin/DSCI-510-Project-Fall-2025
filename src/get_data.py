@@ -10,7 +10,9 @@ load_dotenv()
 
 TMDB_KEY = os.getenv("TMDB_API_KEY")
 OMDB_KEY = os.getenv("OMDB_API_KEY")
-
+if not TMDB_KEY or not OMDB_KEY:
+    raise ValueError("API keys for TMDB and OMDB must be set in the .env file. Refer to README for setup instructions.")   
+    
 all_movies = []
 
 # input parameters
